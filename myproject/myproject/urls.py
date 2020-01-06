@@ -24,4 +24,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('article', TemplateView.as_view(template_name='index.html')),
     
-] 
+]
