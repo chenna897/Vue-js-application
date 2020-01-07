@@ -7,9 +7,21 @@ from rest_framework import viewsets, filters
 from .models import Article
 from .serializers import ArticleSerializer
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+
+class HelloView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
 
 class ArticleViewSet(viewsets.ModelViewSet):
-    queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('article_id', 'article_heading', 'article_body')
+	# permission_classes = (IsAuthenticated,)
+	queryset = Article.objects.all()
+	serializer_class = ArticleSerializer
+	filter_backends = (filters.SearchFilter,)
+	search_fields = ('article_id', 'article_heading', 'article_body')
