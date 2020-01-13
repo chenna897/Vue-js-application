@@ -13,7 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class ArticleViewSet(viewsets.ModelViewSet):
 	
-	permission_classes = (IsAuthenticated,)
+	# permission_classes = (IsAuthenticated,)
 	queryset = Article.objects.all()
 	serializer_class = ArticleSerializer
 	filter_backends = (filters.SearchFilter,)
