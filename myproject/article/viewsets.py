@@ -15,17 +15,26 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse  
 from myproject import settings  
 from django.core.mail import send_mail  
-  
-  
+from django.template.loader import render_to_string
+
 def mail(request):  
     subject = "Greetings"
-    msg     = "Congratulations for your success"  
+    image_url ="https://www.qries.com/images/banner_logo.png"
+    html_message = render_to_string(
+            'htm_file.html',
+            {
+                'message': 'Congratulations for your success ',
+                'image_url':image_url,
+                }
+        )
+    # msg     = "Congratulations for your success"  
     to      = "kesava@asareri.com"  
-    res     = send_mail(subject, msg, settings.EMAIL_HOST_USER, [to])  
+    res     = send_mail(subject,html_message, settings.EMAIL_HOST_USER, [to], html_message=html_message)
+    
     if(res == 1):  
         msg = "<span style='color:green'>Mail Sent Successfuly</span>"  
     else:  
-        msg = "<span style='color:red'>Mail could not sent"  
+        msg = "<span style='color:red'>Mail could not sent</span>"  
     return HttpResponse(msg) 
 
 
